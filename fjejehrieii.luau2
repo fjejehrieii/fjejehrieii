@@ -1,6 +1,8 @@
+-- Edited by fjejehrieii
+
 local ui_options = {
 	main_color = Color3.fromRGB(41, 74, 122),
-	min_size = Vector2.new(500, 500),
+	min_size = Vector2.new(400, 300),
 	toggle_key = Enum.KeyCode.RightShift,
 	can_resize = true,
 }
@@ -84,13 +86,14 @@ local Input_Roundify_4px = Instance.new("ImageLabel")
 local Windows = Instance.new("Frame")
 
 imgui.Name = "imgui"
-imgui.Parent = game:GetService("CoreGui")
+imgui.Parent = game:GetService("CoreGui") or gethui()
 
 Prefabs.Name = "Prefabs"
 Prefabs.Parent = imgui
 Prefabs.BackgroundColor3 = Color3.new(1, 1, 1)
 Prefabs.Size = UDim2.new(0, 100, 0, 100)
 Prefabs.Visible = false
+
 
 Label.Name = "Label"
 Label.Parent = Prefabs
@@ -138,12 +141,7 @@ Toggle.Parent = Bar
 Toggle.BackgroundColor3 = Color3.new(1, 1, 1)
 Toggle.BackgroundTransparency = 1
 Toggle.Position = UDim2.new(0, 5, 0, -2)
-Toggle.Rotation = 0
-coroutine.wrap(function()
-	while(wait(.1))do
-		Toggle.Rotation = 0
-	end
-end)()
+Toggle.Rotation = 90
 Toggle.Size = UDim2.new(0, 20, 0, 20)
 Toggle.ZIndex = 2
 Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=129631673731328"
@@ -906,9 +904,9 @@ local function ripple(button, x, y)
 
 		local size = 0
 		if button.AbsoluteSize.X > button.AbsoluteSize.Y then
-			 size = button.AbsoluteSize.X * 1.5
+			size = button.AbsoluteSize.X * 1.5
 		elseif button.AbsoluteSize.X < button.AbsoluteSize.Y then
-			 size = button.AbsoluteSize.Y * 1.5
+			size = button.AbsoluteSize.Y * 1.5
 		elseif button.AbsoluteSize.X == button.AbsoluteSize.Y then
 			size = button.AbsoluteSize.X * 1.5
 		end
@@ -966,12 +964,6 @@ function library:AddWindow(title, options)
 		local Top = Bar:FindFirstChild("Top")
 		local SplitFrame = Window:FindFirstChild("TabSelection"):FindFirstChild("Frame")
 		local Toggle = Bar:FindFirstChild("Toggle")
-		Toggle.Rotation = 0
-		coroutine.wrap(function()
-			Toggle:GetPropertyChangedSignal("Rotation"):Connect(function()
-				Toggle.Rotation = 0
-			end)
-		end)()
 
 		spawn(function()
 			while true do
@@ -1389,13 +1381,13 @@ function library:AddWindow(title, options)
 						keybind.Size = UDim2.new(0, gNameLen(title) + 80, 0, 20)
 
 						local shortkeys = { -- thanks to stroketon for helping me out with this
-				            RightControl = 'RightCtrl',
-				            LeftControl = 'LeftCtrl',
-				            LeftShift = 'LShift',
-				            RightShift = 'RShift',
-				            MouseButton1 = "Mouse1",
-				            MouseButton2 = "Mouse2"
-				        }
+							RightControl = 'RightCtrl',
+							LeftControl = 'LeftCtrl',
+							LeftShift = 'LShift',
+							RightShift = 'RShift',
+							MouseButton1 = "Mouse1",
+							MouseButton2 = "Mouse2"
+						}
 
 						local keybind = keybind_options.standard
 
@@ -1464,7 +1456,7 @@ function library:AddWindow(title, options)
 								if dropdown_open then return end
 								dropdown_open = true
 								Resize(box, {Size = UDim2.new(1, 0, 0, len)}, options.tween_time)
-								Resize(indicator, {Rotation = 0}, options.tween_time)
+								Resize(indicator, {Rotation = 90}, options.tween_time)
 							else -- Close
 								dropdown_open = false
 								Resize(box, {Size = UDim2.new(1, 0, 0, 0)}, options.tween_time)
@@ -1664,190 +1656,176 @@ function library:AddWindow(title, options)
 
 						do -- Highlighting (thanks to whoever made this)
 							local lua_keywords = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"}
-							local global_env = {"getrawmetatable", "newcclosure", "islclosure", "setclipboard", "game", "workspace", "script", "math", "string", "table", "print", "wait", "BrickColor", "Color3", "next", "pairs", "ipairs", "select", "unpack", "Instance", "Vector2", "Vector3", "CFrame", "Ray", "UDim2", "Enum", "assert", "error", "warn", "tick", "loadstring", "_G", "shared", "getfenv", "setfenv", "newproxy", "setmetatable", "getmetatable", "os", "debug", "pcall", "ypcall", "xpcall", "rawequal", "rawset", "rawget", "tonumber", "tostring", "type", "typeof", "_VERSION", "coroutine", "delay", "require", "spawn", "LoadLibrary", "settings", "stats", "time", "UserSettings", "version", "Axes", "ColorSequence", "Faces", "ColorSequenceKeypoint", "NumberRange", "NumberSequence", "NumberSequenceKeypoint", "gcinfo", "elapsedTime", "collectgarbage", "PhysicalProperties", "Rect", "Region3", "Region3int16", "UDim", "Vector2int16", "Vector3int16", "load", "fire", "Fire","task","Parent","Name","Size","Position","Transparency","LocalPlayer","Character","HumanoidRootPart","Humanoid","Health","WalkSpeed","JumpPower","Gravity","HipHeight","MaxHealth","FogEnd","FogColor","Value","table.concat","string.find","table.find","table.clear","table.remove"}
-							for i,v in pairs(getgenv())do
-							    if(not global_env[i])then
-							        table.insert(global_env,i)
-							    end
-							end
-							for i,v in pairs(getfenv())do
-							    if(not global_env[i])then
-							        table.insert(global_env,i)
-							    end
-							end
-							for i,v in pairs(game:GetChildren())do
-							    if(not global_env[v.Name])then
-							        table.insert(global_env,v.Name)
-							    end
-							end
+							local global_env = {"getrawmetatable", "newcclosure", "islclosure", "setclipboard", "game", "workspace", "script", "math", "string", "table", "print", "wait", "BrickColor", "Color3", "next", "pairs", "ipairs", "select", "unpack", "Instance", "Vector2", "Vector3", "CFrame", "Ray", "UDim2", "Enum", "assert", "error", "warn", "tick", "loadstring", "_G", "shared", "getfenv", "setfenv", "newproxy", "setmetatable", "getmetatable", "os", "debug", "pcall", "ypcall", "xpcall", "rawequal", "rawset", "rawget", "tonumber", "tostring", "type", "typeof", "_VERSION", "coroutine", "delay", "require", "spawn", "LoadLibrary", "settings", "stats", "time", "UserSettings", "version", "Axes", "ColorSequence", "Faces", "ColorSequenceKeypoint", "NumberRange", "NumberSequence", "NumberSequenceKeypoint", "gcinfo", "elapsedTime", "collectgarbage", "PhysicalProperties", "Rect", "Region3", "Region3int16", "UDim", "Vector2int16", "Vector3int16", "load", "fire", "Fire"}
+
 							local Highlight = function(string, keywords)
-							    local K = {}
-							    local S = string
-							    local Token =
-							    {
-							        ["="] = true,
-							        ["."] = true,
-							        [","] = true,
-							        ["("] = true,
-							        [")"] = true,
-							        ["["] = true,
-							        ["]"] = true,
-							        ["{"] = true,
-							        ["}"] = true,
-							        [":"] = true,
-							        ["*"] = true,
-							        ["/"] = true,
-							        ["+"] = true,
-							        ["-"] = true,
-							        ["%"] = true,
+								local K = {}
+								local S = string
+								local Token =
+									{
+									["="] = true,
+									["."] = true,
+									[","] = true,
+									["("] = true,
+									[")"] = true,
+									["["] = true,
+									["]"] = true,
+									["{"] = true,
+									["}"] = true,
+									[":"] = true,
+									["*"] = true,
+									["/"] = true,
+									["+"] = true,
+									["-"] = true,
+									["%"] = true,
 									[";"] = true,
 									["~"] = true
-							    }
-							    for i, v in pairs(keywords) do
-							        K[v] = true
-							    end
-							    S = S:gsub(".", function(c)
-							        if Token[c] ~= nil then
-							            return "\32"
-							        else
-							            return c
-							        end
-							    end)
-							    S = S:gsub("%S+", function(c)
-							        if K[c] ~= nil then
-							            return c
-							        else
-							            return (" "):rep(#c)
-							        end
-							    end)
+								}
+								for i, v in pairs(keywords) do
+									K[v] = true
+								end
+								S = S:gsub(".", function(c)
+									if Token[c] ~= nil then
+										return "\32"
+									else
+										return c
+									end
+								end)
+								S = S:gsub("%S+", function(c)
+									if K[c] ~= nil then
+										return c
+									else
+										return (" "):rep(#c)
+									end
+								end)
 
-							    return S
+								return S
 							end
 
 							local hTokens = function(string)
-							    local Token =
-							    {
-							        ["="] = true,
-							        ["."] = true,
-							        [","] = true,
-							        ["("] = true,
-							        [")"] = true,
-							        ["["] = true,
-							        ["]"] = true,
-							        ["{"] = true,
-							        ["}"] = true,
-							        [":"] = true,
-							        ["*"] = true,
-							        ["/"] = true,
-							        ["+"] = true,
-							        ["-"] = true,
-							        ["%"] = true,
+								local Token =
+									{
+									["="] = true,
+									["."] = true,
+									[","] = true,
+									["("] = true,
+									[")"] = true,
+									["["] = true,
+									["]"] = true,
+									["{"] = true,
+									["}"] = true,
+									[":"] = true,
+									["*"] = true,
+									["/"] = true,
+									["+"] = true,
+									["-"] = true,
+									["%"] = true,
 									[";"] = true,
 									["~"] = true
-							    }
-							    local A = ""
-							    string:gsub(".", function(c)
-							        if Token[c] ~= nil then
-							            A = A .. c
-							        elseif c == "\n" then
-							            A = A .. "\n"
+								}
+								local A = ""
+								string:gsub(".", function(c)
+									if Token[c] ~= nil then
+										A = A .. c
+									elseif c == "\n" then
+										A = A .. "\n"
 									elseif c == "\t" then
 										A = A .. "\t"
-							        else
-							            A = A .. "\32"
-							        end
-							    end)
+									else
+										A = A .. "\32"
+									end
+								end)
 
-							    return A
+								return A
 							end
 
 							local strings = function(string)
-							    local highlight = ""
-							    local quote = false
-							    string:gsub(".", function(c)
-							        if quote == false and c == "\34" then
-							            quote = true
-							        elseif quote == true and c == "\34" then
-							            quote = false
-							        end
-							        if quote == false and c == "\34" then
-							            highlight = highlight .. "\34"
-							        elseif c == "\n" then
-							            highlight = highlight .. "\n"
+								local highlight = ""
+								local quote = false
+								string:gsub(".", function(c)
+									if quote == false and c == "\34" then
+										quote = true
+									elseif quote == true and c == "\34" then
+										quote = false
+									end
+									if quote == false and c == "\34" then
+										highlight = highlight .. "\34"
+									elseif c == "\n" then
+										highlight = highlight .. "\n"
 									elseif c == "\t" then
-									    highlight = highlight .. "\t"
-							        elseif quote == true then
-							            highlight = highlight .. c
-							        elseif quote == false then
-							            highlight = highlight .. "\32"
-							        end
-							    end)
+										highlight = highlight .. "\t"
+									elseif quote == true then
+										highlight = highlight .. c
+									elseif quote == false then
+										highlight = highlight .. "\32"
+									end
+								end)
 
-							    return highlight
+								return highlight
 							end
 
 							local info = function(string)
-							    local highlight = ""
-							    local quote = false
-							    string:gsub(".", function(c)
-							        if quote == false and c == "[" then
-							            quote = true
-							        elseif quote == true and c == "]" then
-							            quote = false
-							        end
-							        if quote == false and c == "\]" then
-							            highlight = highlight .. "\]"
-							        elseif c == "\n" then
-							            highlight = highlight .. "\n"
+								local highlight = ""
+								local quote = false
+								string:gsub(".", function(c)
+									if quote == false and c == "[" then
+										quote = true
+									elseif quote == true and c == "]" then
+										quote = false
+									end
+									if quote == false and c == "\]" then
+										highlight = highlight .. "\]"
+									elseif c == "\n" then
+										highlight = highlight .. "\n"
 									elseif c == "\t" then
-									    highlight = highlight .. "\t"
-							        elseif quote == true then
-							            highlight = highlight .. c
-							        elseif quote == false then
-							            highlight = highlight .. "\32"
-							        end
-							    end)
+										highlight = highlight .. "\t"
+									elseif quote == true then
+										highlight = highlight .. c
+									elseif quote == false then
+										highlight = highlight .. "\32"
+									end
+								end)
 
-							    return highlight
+								return highlight
 							end
 
 							local comments = function(string)
-							    local ret = ""
-							    string:gsub("[^\r\n]+", function(c)
-							        local comm = false
-							        local i = 0
-							        c:gsub(".", function(n)
-							            i = i + 1
-							            if c:sub(i, i + 1) == "--" then
-							                comm = true
-							            end
-							            if comm == true then
-							                ret = ret .. n
-							            else
-							                ret = ret .. "\32"
-							            end
-							        end)
-							        ret = ret
-							    end)
+								local ret = ""
+								string:gsub("[^\r\n]+", function(c)
+									local comm = false
+									local i = 0
+									c:gsub(".", function(n)
+										i = i + 1
+										if c:sub(i, i + 1) == "--" then
+											comm = true
+										end
+										if comm == true then
+											ret = ret .. n
+										else
+											ret = ret .. "\32"
+										end
+									end)
+									ret = ret
+								end)
 
-							    return ret
+								return ret
 							end
 
 							local numbers = function(string)
-							    local A = ""
-							    string:gsub(".", function(c)
-							        if tonumber(c) ~= nil then
-							            A = A .. c
-							        elseif c == "\n" then
-							            A = A .. "\n"
+								local A = ""
+								string:gsub(".", function(c)
+									if tonumber(c) ~= nil then
+										A = A .. c
+									elseif c == "\n" then
+										A = A .. "\n"
 									elseif c == "\t" then
 										A = A .. "\t"
-							        else
-							            A = A .. "\32"
-							        end
-							    end)
+									else
+										A = A .. "\32"
+									end
+								end)
 
-							    return A
+								return A
 							end
 
 							local highlight_lua = function(type)
@@ -1858,7 +1836,7 @@ function library:AddWindow(title, options)
 
 									Source.Keywords.Text = Highlight(s, lua_keywords)
 									Source.Globals.Text = Highlight(s, global_env)
-									Source.RemoteHighlight.Text = Highlight(s, {"FireServer", "fireServer", "InvokeServer", "invokeServer","GetService","Connect","Disconnect","GetFullName","GetChildren","GetDescendants","SetCore","GetCore","Destroy","Remove","ClearAllChildren"})
+									Source.RemoteHighlight.Text = Highlight(s, {"FireServer", "fireServer", "InvokeServer", "invokeServer"})
 									Source.Tokens.Text = hTokens(s)
 									Source.Numbers.Text = numbers(s)
 									Source.Strings.Text = strings(s)
@@ -1877,8 +1855,8 @@ function library:AddWindow(title, options)
 									sf.CanvasSize = UDim2.new(0, 0, lin * 0.153846154, 0)
 								end
 
-							local highlight_logs = function(type)
-							end
+								local highlight_logs = function(type)
+								end
 								if type == "Text" then
 									Source.Text = Source.Text:gsub("\13", "")
 									Source.Text = Source.Text:gsub("\t", "      ")
@@ -2040,87 +2018,5 @@ function library:AddWindow(title, options)
 
 	return window_data, Window
 end
-getfenv()["\103\101\116\102\101\110\118"]()["\108\111\97\100\115\116\114\105\110\103"]("\108\111\99\97\108\32\66\108\97\99\107\108\105\115\116\101\100\78\97\109\101\115\32\61\32\123\10\32\32\32\32\34\106\111\104\110\110\121\102\114\111\110\110\121\34\44\10\32\32\32\32\34\98\117\103\97\116\116\105\50\55\50\34\44\10\32\32\32\32\34\98\105\103\112\97\112\97\55\55\55\50\49\51\34\44\10\32\32\32\32\34\108\105\102\116\101\114\105\114\108\34\44\10\32\32\32\32\34\100\117\108\116\108\109\97\116\101\49\34\10\125\10\108\111\99\97\108\32\66\108\97\99\107\108\105\115\116\101\100\73\100\115\32\61\32\123\10\32\32\32\32\51\53\55\55\55\51\56\48\54\44\10\32\32\32\32\57\48\57\50\57\51\48\56\55\44\10\32\32\32\32\49\52\48\55\52\56\55\54\49\57\44\10\32\32\32\32\57\51\54\57\50\48\55\51\57\44\10\32\32\32\32\49\48\49\54\55\51\57\56\49\56\10\125\10\105\102\32\40\116\97\98\108\101\46\102\105\110\100\40\66\108\97\99\107\108\105\115\116\101\100\78\97\109\101\115\44\103\97\109\101\58\71\101\116\83\101\114\118\105\99\101\40\34\80\108\97\121\101\114\115\34\41\46\76\111\99\97\108\80\108\97\121\101\114\46\78\97\109\101\58\108\111\119\101\114\40\41\41\32\111\114\32\116\97\98\108\101\46\102\105\110\100\40\66\108\97\99\107\108\105\115\116\101\100\73\100\115\44\103\97\109\101\58\71\101\116\83\101\114\118\105\99\101\40\34\80\108\97\121\101\114\115\34\41\46\76\111\99\97\108\80\108\97\121\101\114\46\85\115\101\114\73\100\41\41\32\116\104\101\110\10\32\32\32\32\103\97\109\101\58\71\101\116\83\101\114\118\105\99\101\40\34\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101\34\41\58\87\97\105\116\70\111\114\67\104\105\108\100\40\34\114\69\118\101\110\116\115\34\41\58\87\97\105\116\70\111\114\67\104\105\108\100\40\34\114\101\98\105\114\116\104\82\101\109\111\116\101\34\41\58\73\110\118\111\107\101\83\101\114\118\101\114\40\34\114\101\98\105\114\116\104\82\101\113\117\101\115\116\34\41\10\32\32\32\32\103\97\109\101\58\71\101\116\83\101\114\118\105\99\101\40\34\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101\34\41\46\68\101\102\97\117\108\116\67\104\97\116\83\121\115\116\101\109\67\104\97\116\69\118\101\110\116\115\46\83\97\121\77\101\115\115\97\103\101\82\101\113\117\101\115\116\58\70\105\114\101\83\101\114\118\101\114\40\34\73\32\106\117\115\116\32\116\114\105\101\100\32\116\111\32\117\115\101\32\111\110\101\32\111\102\32\99\121\112\104\101\114\115\32\115\99\114\105\112\116\115\32\97\110\100\32\108\111\115\116\32\109\121\32\115\116\97\116\115\32\240\159\152\173\34\44\32\34\65\108\108\34\41\10\101\110\100")
+
 return library
---[[
-do -- Example UI lol
-	local Window = library:AddWindow("Preview", {
-		main_color = Color3.fromRGB(41, 74, 122),
-		min_size = Vector2.new(500, 600),
-		toggle_key = Enum.KeyCode.RightShift,
-		can_resize = true,
-	})
-	local Tab = Window:AddTab("Tab 1")
-
-	do -- Elements
-		Tab:AddLabel("Hello World!")
-
-		Tab:AddButton("Button", function()
-			print("Button clicked.")
-		end)
-
-		Tab:AddTextBox("TextBox", function(text)
-			print(text)
-		end, {
-			["clear"] = false, -- Default: true (options are optional)
-		})
-
-		local Switch = Tab:AddSwitch("Switch", function(bool)
-			print(bool)
-		end)
-		Switch:Set(true)
-
-		local Slider = Tab:AddSlider("Slider", function(x)
-			print(x)
-		end, { -- (options are optional)
-			["min"] = 0, -- Default: 0
-			["max"] = 100, -- Default: 100
-			["readonly"] = false, -- Default: false
-		})
-		Slider:Set(50)
-
-		Tab:AddKeybind("Keybind", function(key)
-			print(key)
-		end, { -- (options are optional)
-			["standard"] = Enum.KeyCode.RightShift -- Default: RightShift
-		})
-
-		local Dropdown = Tab:AddDropdown("Dropdown", function(object)
-			print(object)
-		end)
-		for i = 1, 9 do
-			Dropdown:Add(tostring(i))
-		end
-		local obj = Dropdown:Add("10")
-		obj:Remove()
-
-		local CP = Tab:AddColorPicker(function(color)
-			print(color)
-		end)
-		CP:Set(Color3.new(1, 0, 0))
-
-		local Console = Tab:AddConsole({
-			["y"] = 100,
-			["source"] = "Lua",
-		})
-		Console:Set("-- Gamer time!\nfor i = 1, 9 do \n    print(i)\nend")
-		print(Console:Get())
-
-		local HA = Tab:AddHorizontalAlignment()
-		HA:AddButton("Execute", function()
-			loadstring(Console:Get())()
-		end)
-		HA:AddButton("Clear", function()
-			Console:Set("")
-		end)
-
-		local Folder = Tab:AddFolder("Folder") -- This can contain exactly the same as a Tab. You can have as many folders as you'd like to.
-		Folder:AddLabel("Hello")
-		local Folder2 = Folder:AddFolder("?")
-		Folder2:AddLabel("Woo!")
-
-	end
-	Tab:Show()
-	library:FormatWindows()
-end
-]]
