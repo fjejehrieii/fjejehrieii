@@ -98,7 +98,7 @@ Label.Parent = Prefabs
 Label.BackgroundColor3 = Color3.new(1, 1, 1)
 Label.BackgroundTransparency = 1
 Label.Size = UDim2.new(0, 200, 0, 20)
-Label.Font = Enum.Font.GothamSemibold
+Label.Font = Enum.Font.Oswald
 Label.Text = "Hello, world 123"
 Label.TextColor3 = Color3.new(1, 1, 1)
 Label.TextSize = 14
@@ -237,7 +237,7 @@ TextBox.PlaceholderColor3 = Color3.new(0.698039, 0.698039, 0.698039)
 TextBox.PlaceholderText = "Input Text"
 TextBox.Text = ""
 TextBox.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
-TextBox.TextSize = 17
+TextBox.TextSize = 20
 
 TextBox_Roundify_4px.Name = "TextBox_Roundify_4px"
 TextBox_Roundify_4px.Parent = TextBox
@@ -336,7 +336,7 @@ Dropdown.ZIndex = 2
 Dropdown.Font = Enum.Font.Oswald
 Dropdown.Text = "      Dropdown"
 Dropdown.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
-Dropdown.TextSize = 14
+Dropdown.TextSize = 20
 Dropdown.TextXAlignment = Enum.TextXAlignment.Left
 
 Indicator_2.Name = "Indicator"
