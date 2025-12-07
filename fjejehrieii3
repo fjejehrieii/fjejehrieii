@@ -237,7 +237,7 @@ TextBox.PlaceholderColor3 = Color3.new(0.698039, 0.698039, 0.698039)
 TextBox.PlaceholderText = "Input Text"
 TextBox.Text = ""
 TextBox.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
-TextBox.TextSize = 25
+TextBox.TextSize = 18
 
 TextBox_Roundify_4px.Name = "TextBox_Roundify_4px"
 TextBox_Roundify_4px.Parent = TextBox
@@ -395,7 +395,7 @@ TabButton.ZIndex = 2
 TabButton.Font = Enum.Font.Oswald
 TabButton.Text = "Test tab"
 TabButton.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
-TabButton.TextSize = 14
+TabButton.TextSize = 17
 
 TextButton_Roundify_4px_2.Name = "TextButton_Roundify_4px"
 TextButton_Roundify_4px_2.Parent = TabButton
