@@ -748,7 +748,7 @@ DropdownButton.ZIndex = 3
 DropdownButton.Font = Enum.Font.Oswald
 DropdownButton.Text = "      Button"
 DropdownButton.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
-DropdownButton.TextSize = 14
+DropdownButton.TextSize = 20
 DropdownButton.TextXAlignment = Enum.TextXAlignment.Left
 
 Keybind.Name = "Keybind"
