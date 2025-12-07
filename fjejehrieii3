@@ -336,7 +336,7 @@ Dropdown.ZIndex = 2
 Dropdown.Font = Enum.Font.Oswald
 Dropdown.Text = "      Dropdown"
 Dropdown.TextColor3 = Color3.new(0.784314, 0.784314, 0.784314)
-Dropdown.TextSize = 17
+Dropdown.TextSize = 20
 Dropdown.TextXAlignment = Enum.TextXAlignment.Left
 
 Indicator_2.Name = "Indicator"
@@ -357,7 +357,7 @@ Box.Position = UDim2.new(0, 0, 0, 25)
 Box.Size = UDim2.new(1, 0, 0, 150)
 Box.ZIndex = 3
 Box.Image = "rbxassetid://2851929490"
-Box.ImageColor3 = Color3.new(0.129412, 0.133333, 0.141176)
+Box.ImageColor3 = Color3.new(0.0000000, 0.0000000, 0.0000000)
 Box.ScaleType = Enum.ScaleType.Slice
 Box.SliceCenter = Rect.new(4, 4, 4, 4)
 
@@ -380,7 +380,7 @@ TextButton_Roundify_4px.BackgroundColor3 = Color3.new(1, 1, 1)
 TextButton_Roundify_4px.BackgroundTransparency = 1
 TextButton_Roundify_4px.Size = UDim2.new(1, 0, 1, 0)
 TextButton_Roundify_4px.Image = "rbxassetid://2851929490"
-TextButton_Roundify_4px.ImageColor3 = Color3.new(0.203922, 0.207843, 0.219608)
+TextButton_Roundify_4px.ImageColor3 = Color3.new(0.0000000, 0.0000000, 0.0000000)
 TextButton_Roundify_4px.ScaleType = Enum.ScaleType.Slice
 TextButton_Roundify_4px.SliceCenter = Rect.new(4, 4, 4, 4)
 
@@ -428,7 +428,7 @@ Button.ZIndex = 2
 Button.Font = Enum.Font.Oswald
 Button.Text = "      Folder"
 Button.TextColor3 = Color3.new(1, 1, 1)
-Button.TextSize = 17
+Button.TextSize = 20
 Button.TextXAlignment = Enum.TextXAlignment.Left
 
 TextButton_Roundify_4px_3.Name = "TextButton_Roundify_4px"
@@ -727,7 +727,7 @@ Button_2.Size = UDim2.new(0, 91, 0, 20)
 Button_2.ZIndex = 2
 Button_2.Font = Enum.Font.Oswald
 Button_2.TextColor3 = Color3.new(1, 1, 1)
-Button_2.TextSize = 14
+Button_2.TextSize = 20
 
 TextButton_Roundify_4px_5.Name = "TextButton_Roundify_4px"
 TextButton_Roundify_4px_5.Parent = Button_2
