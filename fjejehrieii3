@@ -341,7 +341,7 @@ Dropdown.TextXAlignment = Enum.TextXAlignment.Left
 
 Indicator_2.Name = "Indicator"
 Indicator_2.Parent = Dropdown
-Indicator_2.BackgroundColor3 = Color3.new(1, 1, 1)
+Indicator_2.BackgroundColor3 = Color3.new(0, 0, 0)
 Indicator_2.BackgroundTransparency = 1
 Indicator_2.Position = UDim2.new(0.899999976, -10, 0.100000001, 0)
 Indicator_2.Rotation = -90
@@ -357,7 +357,7 @@ Box.Position = UDim2.new(0, 0, 0, 25)
 Box.Size = UDim2.new(1, 0, 0, 150)
 Box.ZIndex = 3
 Box.Image = "rbxassetid://2851929490"
-Box.ImageColor3 = Color3.new(0.129412, 0.133333, 0.141176)
+Box.ImageColor3 = Color3.new(0.000000, 0.000000, 0.000000)
 Box.ScaleType = Enum.ScaleType.Slice
 Box.SliceCenter = Rect.new(4, 4, 4, 4)
 
@@ -428,7 +428,7 @@ Button.ZIndex = 2
 Button.Font = Enum.Font.Oswald
 Button.Text = "      Folder"
 Button.TextColor3 = Color3.new(1, 1, 1)
-Button.TextSize = 14
+Button.TextSize = 17
 Button.TextXAlignment = Enum.TextXAlignment.Left
 
 TextButton_Roundify_4px_3.Name = "TextButton_Roundify_4px"
